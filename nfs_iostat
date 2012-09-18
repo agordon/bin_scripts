@@ -1,0 +1,7 @@
+#!/bin/sh
+
+## Prints NFS activelty (iostat -n),
+## with pretty formatting (accomodating long-named NFS mounts)
+##
+iostat -n 1 | stdbuf -o L sed 's/  */\t/g' | expand -t 40,54,65,76,87,98,109,120,131
+

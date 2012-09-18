@@ -1,0 +1,3 @@
+#!/bin/sh
+
+du -shc | sort -k1h,1

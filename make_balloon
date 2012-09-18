@@ -1,0 +1,42 @@
+#!/bin/sh
+
+##
+## creates a big empty/sparse file named "balloon_X"
+##
+
+SIZE=$1
+[ -z "$SIZE" ] && { echo "Usage: $0 [SIZE]" >&2 ; echo "e.g. $0 100G" >&2 ; exit 1 ; }
+
+## find any existing ballons, create the next one
+LAST_BALLOON=$(ls balloon* 2>/dev/null | sed -r 's/balloon_?//' | sort -n | tail -n 1)
+if [ -z "$LAST_BALLOON" ]; then
+	BALLOON=1
+else
+	LAST_BALLOON=${LAST_BALLOON#0}
+	BALLOON=$((LAST_BALLOON + 1))
+fi
+echo "Creating balloon $BALLOON with size $SIZE"
+
+FS_TYPE=$(stat --file-system -c %T .)
+
+if [ "$FS_TYPE" = "nfs" -o "$FS_TYPE" = "cifs" ]; then
+	dd if=/dev/zero of="balloon_$BALLOON" bs=1 count=1 seek="$SIZE"
+else
+	# on local file systems, we can't use the "seek" parameter to create an empty file.
+	# this file system - most likely they support "sparse" files,
+	# which beats the purpose of filling up the disk.
+
+	BLOCK=$(stat -c %o .) || exit 1
+
+	##Poor man's human-size expander
+	SIZE=${SIZE/GB/000000000}
+	SIZE=${SIZE/G/000000000}
+	SIZE=${SIZE/MB/000000}
+	SIZE=${SIZE/M/000000}
+	SIZE=${SIZE/K/000}
+	SIZE=${SIZE/KB/000}
+
+	let COUNT=$SIZE/$BLOCK
+
+	dd if=/dev/zero of="balloon_$BALLOON" bs=$BLOCK count=$COUNT
+fi
