@@ -1,0 +1,18 @@
+#!/bin/sh
+
+##
+## Helper script to automatically view a tabular file
+## with properly tabulated fields.
+## See "detect_tab_stops --help" for details.
+##
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: AGPLv3 or later
+
+FILE=$1
+if [ -z "$FILE" ] ; then
+	echo "Error: missing file name to view. See 'detect_tab_stops --help' for help." >&2
+	exit 1
+fi
+[ -e "$FILE" ] || { echo "Error: file '$FILE' not found." >&2 ; exit 1 ; }
+
+expand -t$(detect_tab_stops "$FILE") "$FILE"

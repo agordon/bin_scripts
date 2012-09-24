@@ -1,0 +1,97 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use Data::Dumper;
+use Getopt::Long;
+use File::Basename qw/basename/;
+
+my $lines_to_read = 100 ;
+my $min_field_length = 0 ;
+my $field_spacing = 2 ;
+
+sub show_help
+{
+my $base = basename($0);
+print<<"EOF";
+Automatic Tab-stop scanner
+Copyright (C) 2012  A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3 or later.
+
+This script scans a tabular text file, and prints the optimal tab-stops as
+a comma-separated list.
+
+Usage:
+ \$ $base [OPTIONS] filename
+
+Options:
+ --help       This helpful help screen.
+ --lines=n    Scan the first N lines (default: $lines_to_read)
+ --min=n      Minimum field length (default: no minimum).
+ --spacing=n  Number of spaces between fields (default: $field_spacing)
+
+
+Common usage:
+ # Use 'less' to display FILE.TXT, properly tabulated
+ \$ less -S -x\$($base FILE.TXT) FILE.TXT
+
+ # Use 'expand' to display FILE.TXT, properly tabulated
+ \$ expand -t\$($base FILE.TXT) FILE.TXT
+
+The above commands are also available as 'atexpand' and 'atless' .
+
+EOF
+	exit 0;
+}
+
+
+GetOptions(
+	"lines=i" => \$lines_to_read,
+	"min=i" => \$min_field_length,
+	"spacing=i" => \$field_spacing,
+	"help" => \&show_help,
+	) or die "Error: invalid command-line parameters\n";
+my $filename = shift or die "Error: missing file name. Use --help for help.\n";
+
+die "Error: file '$filename' is not a regular file, aborting.\n"
+	unless -f $filename;
+
+my @field_lengths;
+
+##
+## Detect the length of each field for the first X lines
+##
+open my $FILE,"<",$filename
+	or die "Error: can't open file '$filename': $!\n";
+my $line=0;
+while (<$FILE>) {
+	chomp;
+	my @fields = split /\t/ ;
+
+	foreach my $index ( 0 .. scalar(@fields)-1 ) {
+
+		my $l = length($fields[$index]);
+
+		$field_lengths[$index] = $l if !defined $field_lengths[$index] ||
+						$field_lengths[$index] < $l;
+	}
+
+	$line++;
+	last if $line > $lines_to_read;
+}
+close $FILE;
+
+## DEBUG
+# print STDERR Dumper(\@field_lengths),"\n" if $debug;
+
+##
+## Print the tab-stobs in a "less -x" compatible format
+##
+my $stop =0 ;
+@field_lengths = map { $_ > $min_field_length ? $_ : $min_field_length } @field_lengths;
+my @stops = map { $stop += $_ + $field_spacing ; $stop } @field_lengths;
+
+## DEBUG
+#print STDERR Dumper(\@stops),"\n";
+
+my $stops = join(",",@stops);
+print $stops;
