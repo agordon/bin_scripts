@@ -10,6 +10,7 @@ bin_SCRIPTS = \
 	detect_tab_stops \
 	dict \
 	dudirs \
+	easyjoin \
 	filetype_size_breakdown \
 	list_columns \
 	make_balloon \

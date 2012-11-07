@@ -14,6 +14,7 @@ AC_CONFIG_FILES( [
 		  scripts/detect_tab_stops
 		  scripts/dict
 		  scripts/dudirs
+		  scripts/easyjoin
 		  scripts/filetype_size_breakdown
 		  scripts/list_columns
 		  scripts/make_balloon
