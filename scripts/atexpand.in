@@ -1,7 +1,5 @@
 #!/bin/sh
 
-VERSION=@VERSION@
-
 ##
 ## Helper script to automatically view a tabular file
 ## with properly tabulated fields.
@@ -15,7 +13,7 @@ if [ -z "$FILE" -o "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
 	echo "
 atexpand - Print a file, with automatic tab expantion
-Version: $VERSION
+Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
 License: AGPLv3+

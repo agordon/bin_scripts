@@ -1,12 +1,10 @@
 #!/bin/sh
 
-VERSION=@VERSION@
-
 if [ "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
 	echo "
 ppsx - Copy file/dir name to clipboard, in SCP/RSYNC format.
-Version: $VERSION
+Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
 License: AGPLv3+

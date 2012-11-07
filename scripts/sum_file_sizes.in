@@ -2,13 +2,11 @@
 
 set -o pipefail
 
-VERSION=@VERSION@
-
 if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
 	echo "
 sum_file_sizes - Prints the total size of all specified files
-Version: $VERSION
+Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
 License: AGPLv3+

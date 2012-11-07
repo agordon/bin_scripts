@@ -4,13 +4,11 @@
 ## This script calculates how much disk space is used by each file type (e.g. "txt", "fq")
 ##
 
-VERSION=@VERSION@
-
 if [ "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
 	echo "
 filetype_size_breakdown - Summarize disk-usage by file type.
-Version: $VERSION
+Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
 License: AGPLv3+

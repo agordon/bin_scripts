@@ -2,9 +2,9 @@
 
 # To keep this script as transparent and simple as possible,
 # these are never printed, and there's no help screen.
-VERSION=@VERSION@
-COPYRIGHT="Copyright (C) 2012  A. Gordon (gordon at cshl dot edu)"
-LICENSE=AGPLv3+
+# VERSION=@VERSION@
+# COPYRIGHT="Copyright (C) 2012  A. Gordon (gordon at cshl dot edu)"
+# LICENSE=AGPLv3+
 
 ##
 ## A wrapper script for "dict" -
