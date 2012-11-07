@@ -5,7 +5,30 @@
 ##
 
 SIZE=$1
-[ -z "$SIZE" ] && { echo "Usage: $0 [SIZE]" >&2 ; echo "e.g. $0 100G" >&2 ; exit 1 ; }
+if [ -z "$SIZE" -o "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+Make-Ballon - create big empty files in the current directory.
+Version: @VERSION@
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
+
+Usage:
+  $BASE [SIZE]
+
+Examples:
+  $BASE 100M
+  $BASE 30G
+
+Note:
+  Files will be automatically named 'balloon_NNN' where NNN is the next available number
+  (e.g. balloon_1, balloon_2, balloon_3 ... balloon_51 ...
+
+"
+
+    exit
+fi
 
 ## find any existing ballons, create the next one
 LAST_BALLOON=$(ls balloon* 2>/dev/null | sed -r 's/balloon_?//' | sort -n | tail -n 1)

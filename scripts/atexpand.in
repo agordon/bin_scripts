@@ -1,0 +1,41 @@
+#!/bin/sh
+
+##
+## Helper script to automatically view a tabular file
+## with properly tabulated fields.
+## See "detect_tab_stops --help" for details.
+##
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: AGPLv3 or later
+
+FILE=$1
+if [ -z "$FILE" -o "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+atexpand - Print a file, with automatic tab expantion
+Version: @VERSION@
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
+
+Usage:
+  $BASE [INPUT-FILE]
+
+Will read INPUT-FILE, and output (to STDOUT) the file,
+after expanding TABS to spaces, ensuring adequete spaces are
+inserted to align all fields properly (uses 'detect_tab_stops'
+to calculate tab expansion).
+
+Equivalent to:
+  expand -tN1,N2,N3,N4,N5,... INPUT-FILE
+while automatically calculating N1,N2,N3,N4 for optimal viewing.
+
+"
+
+    exit
+fi
+
+[ -e "$FILE" ] || { echo "Error: file '$FILE' not found." >&2 ; exit 1 ; }
+[ -r "$FILE" ] || { echo "Error: Input file must be a regular file (not a pipe/socket)" >&2 ; exit 1 ; }
+
+expand -t$(detect_tab_stops "$FILE") "$FILE"

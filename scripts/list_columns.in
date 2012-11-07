@@ -1,13 +1,11 @@
 #!/bin/sh
 
-VERSION=0.1.0
-
 # executed without input filenames/redirection - show help
 if [ \( -t 0 -a -z "$1" \) -o \( "$1" = "-h" \) -o \( "$1" = "--help" \) ] ; then
 	BASE=$(basename $0)
 	echo "
 list-columns - list the field/column names in a given file, based on the first line.
-Version: $VERSION
+Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
 License: AGPLv3+

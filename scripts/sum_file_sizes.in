@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -o pipefail
+
+if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+sum_file_sizes - Prints the total size of all specified files
+Version: @VERSION@
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
+
+Usage:
+ $BASE \"*.txt\"
+
+Will print the sum of all files matching \"*.txt\" (in the current directory),
+in human-friendly form (e.g. 6.5Gi).
+
+NOTE:
+1. If the parameter contains shell wild-cards, it must be quoted.
+2. Only a single wild-card/filename can be specified.
+3. Files are searched for using 'find', and sub-directories are also searched.
+
+"
+	exit 0
+fi
+
+GLOB=$1
+
+find -iname "$GLOB" -printf "%s\n" | awk '{sum+=$1}END{print sum}' | human.py --div 1000 | sed 's/ //g'
