@@ -5,15 +5,20 @@ use Data::Dumper;
 use Getopt::Long;
 use File::Basename qw/basename/;
 
+my $VERSION = '@VERSION@';
+
 my $lines_to_read = 100 ;
 my $min_field_length = 0 ;
 my $field_spacing = 2 ;
+my $debug = 0 ;
 
 sub show_help
 {
 my $base = basename($0);
 print<<"EOF";
 Automatic Tab-stop scanner
+Version: $VERSION
+
 Copyright (C) 2012  A. Gordon ( gordon at cshl dot edu )
 License: AGPLv3 or later.
 
@@ -49,6 +54,7 @@ GetOptions(
 	"min=i" => \$min_field_length,
 	"spacing=i" => \$field_spacing,
 	"help" => \&show_help,
+	"debug" => \$debug,
 	) or die "Error: invalid command-line parameters\n";
 my $filename = shift or die "Error: missing file name. Use --help for help.\n";
 
@@ -80,8 +86,7 @@ while (<$FILE>) {
 }
 close $FILE;
 
-## DEBUG
-# print STDERR Dumper(\@field_lengths),"\n" if $debug;
+print STDERR Dumper(\@field_lengths),"\n" if $debug;
 
 ##
 ## Print the tab-stobs in a "less -x" compatible format
@@ -90,8 +95,7 @@ my $stop =0 ;
 @field_lengths = map { $_ > $min_field_length ? $_ : $min_field_length } @field_lengths;
 my @stops = map { $stop += $_ + $field_spacing ; $stop } @field_lengths;
 
-## DEBUG
-#print STDERR Dumper(\@stops),"\n";
+print STDERR Dumper(\@stops),"\n" if $debug;
 
 my $stops = join(",",@stops);
 print $stops;
