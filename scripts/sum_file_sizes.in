@@ -2,28 +2,32 @@
 
 set -o pipefail
 
-##
-## Given a wild-card of file names (e.g. "*.fq"),
-## prints the total size of the files, in human form (e.g. 6.5Gi)
-##
-GLOB="$1"
-if [ -z "$GLOB" ]; then
+VERSION=@VERSION@
+
+if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
 	echo "
-Print total size of given files.
+sum_file_sizes - Prints the total size of all specified files
+Version: $VERSION
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
 
 Usage:
- $(basename $0) \"*.fq\"
+ $BASE \"*.txt\"
 
-Will print the sum of all fiels matching \"*.fq\", in human-friendly form (e.g. 6.5Gi).
+Will print the sum of all files matching \"*.txt\" (in the current directory),
+in human-friendly form (e.g. 6.5Gi).
 
 NOTE:
 1. If the parameter contains shell wild-cards, it must be quoted.
 2. Only a single wild-card/filename can be specified.
 3. Files are searched for using 'find', and sub-directories are also searched.
 
-" >&1
-	exit 1
+"
+	exit 0
 fi
 
-find -iname "$GLOB" -printf "%s\n" | awk '{sum+=$1}END{print sum}' | human.py --div 1000
+GLOB=$1
 
+find -iname "$GLOB" -printf "%s\n" | awk '{sum+=$1}END{print sum}' | human.py --div 1000 | sed 's/ //g'
