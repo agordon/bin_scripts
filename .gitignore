@@ -1,0 +1,13 @@
+configure
+Makefile
+Makefile.in
+scripts/Makefile
+scripts/Makefile.in
+INSTALL
+COPYING
+config/*
+config.log
+config.status
+aclocal.m4
+autom4te.cache/*
+
