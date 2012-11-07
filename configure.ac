@@ -24,6 +24,7 @@ AC_CONFIG_FILES( [
 		  scripts/sum_file_sizes
 		  scripts/sumcol
 		  scripts/tawk
+		  scripts/tuniq
 		  scripts/xtime
 		  ] )
 

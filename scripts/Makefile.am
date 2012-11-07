@@ -20,6 +20,7 @@ bin_SCRIPTS = \
 	sum_file_sizes \
 	sumcol \
 	tawk \
+	tuniq \
 	xtime
 
 
