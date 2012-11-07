@@ -1,0 +1,66 @@
+#!/bin/sh
+
+##
+## This script takes one input file, and print it to the STDOUT.
+## If the file is compressed, it will be automatically uncompressed (gzip/bzip2/xz)
+##
+##
+## Copyright (C) 2012 A. Gordon (gordon at cshl dot edu)
+## License: AGPLv3 or later.
+##
+## TODO:
+##  1. Accept multiple files as parameters
+##  2. Add "pv" (pipeviewer) visualization
+
+set -o pipefail
+
+INPUT="$1"
+if [ -z "$INPUT" -o "$1" = "--help" -o "$1" = "-h" ] ; then
+	BASENAME=$(basename "$0")
+	echo "$BASENAME - prints a (possibly compressed) file to STDOUT
+Version @VERSION@
+Copyright (C) 2012    A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3 or later.
+
+Usage: $BASENAME [FILE]
+
+FILE must be a regular file (can't be STDIN, pipes, etc.).
+The file type is checked (using 'file'). If the file is compressed
+with GZIP or BZIP2 or XZ, the output will be uncompressed.
+(The original file is not changed).
+
+Example:
+	\$ cat hello.txt
+	Hello World
+
+	\$ gzip -c < hello.txt > hello.txt.gz
+	\$ bzip2 -c < hello.txt > hello.txt.bz2
+
+	\$ xxcat hello.txt
+	Hello World
+	\$ xxcat hello.txt.gz
+	Hello World
+	\$ xxcat hello.txt.bz2
+	Hello World
+
+"
+	exit 1
+fi
+[ -r "$INPUT" ] || { echo "Error: can't find input file '$INPUT'" >&2 ; exit 1 ; }
+
+[ -f "$INPUT" ] || { echo "Error: input file '$INPUT' is not a regular file (this script can't handle pipes, sockets, etc.)" >&2 ; exit 1 ; }
+
+#automatically ungzip files, in needed
+MIME=$(file -bi "$INPUT") || exit 1
+
+if [ "$MIME" = "application/x-gzip" ]; then
+	gunzip -d -c "$INPUT" || exit 1
+elif [ "$MIME" = "application/x-bzip2" ]; then
+	bunzip2 -d -c "$INPUT" || exit 1
+elif [ "$MIME" = "application/x-xz" ]; then
+	#NOTE: older 'magic' doesn't recognize XZ archives, this is likely not to work on CentOS 5.5
+	xz -d -c "$INPUT" || exit 1
+else
+	cat "$INPUT" || exit 1
+fi
+

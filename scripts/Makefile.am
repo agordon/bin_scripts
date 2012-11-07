@@ -24,6 +24,7 @@ bin_SCRIPTS = \
 	sumcol \
 	tawk \
 	tuniq \
-	xtime
+	xtime \
+	xxcat
 
 

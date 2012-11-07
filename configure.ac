@@ -29,6 +29,7 @@ AC_CONFIG_FILES( [
 		  scripts/tawk
 		  scripts/tuniq
 		  scripts/xtime
+		  scripts/xxcat
 		  ] )
 
 dnl AC_CONFIG_FILES([foo], [chmod +x foo])
