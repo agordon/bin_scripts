@@ -1,17 +1,60 @@
-#!/usr/bin/perl
-
+#!/usr/bin/env perl
 use strict;
 use warnings;
 use Getopt::Long;
 use Data::Dumper;
+use File::Basename qw/basename/;
+use Number::Bytes::Human qw/format_bytes/;
+
+my $VERSION='@VERSION@';
 
 my $skip_first_line = undef ;
 my $find_first_numeric_column = 1;
 my $column_index = undef ;
+my $print_human = 1 ;
+
+sub show_help
+{
+my $BASE = basename($0);
+print<<"EOF";
+sumcol: sum the values in a given column.
+Version: $VERSION
+
+Copyright (C) 2012  A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3 or later.
+
+This scripts reads the input file (or STDIN),
+detects the first numeric column, and prints the sum of the values
+in that column.
+
+Usage:
+ \$ $BASE [OPTIONS] filename
+
+Options:
+ --help       This helpful help screen.
+ --header     Skip the first header line (for auto detection)
+ --human      Print human sizes (e.g. 3.5GB). This is the default.
+ --no-human   Print value as-is.
+
+ -c i
+ --column=i   Sum column i (instead of auto-detecting the first numeric column)
+
+Example:
+ \$ du /tmp/ | $BASE
+
+ is equivalent to:
+ \$ du /tmp/ | awk '{ sum+=\$1 } END { print sum }'
+
+
+EOF
+	exit 0;
+}
 
 my $result = GetOptions("header" => \$skip_first_line,
-			"column=i" => \$column_index);
-
+			"column|c=i" => \$column_index,
+			"human" => \sub { },
+			"no-human" => \sub { $print_human=0 ; },
+			"help|h" => \&show_help);
 die "Bad command line arguments\n" unless $result;
 
 # make "column_index" into zero-based index
@@ -44,4 +87,8 @@ while (<>) {
 	$sum += $fields[$column_index] if length($fields[$column_index]);
 }
 
-print $sum, "\n";
+if ( $print_human ) {
+	print format_bytes($sum), "\n";
+} else {
+	print $sum, "\n";
+}
