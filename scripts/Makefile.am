@@ -17,6 +17,7 @@ bin_SCRIPTS = \
 	ppsx \
 	psx \
 	rsx \
+	sort-header \
 	sum_file_sizes \
 	sumcol \
 	tawk \

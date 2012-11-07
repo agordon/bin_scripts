@@ -25,6 +25,7 @@ scripts/nfs_iostat
 scripts/ppsx
 scripts/psx
 scripts/rsx
+scripts/sort-header
 scripts/sum_file_sizes
 scripts/sumcol
 scripts/tawk

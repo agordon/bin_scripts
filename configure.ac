@@ -21,6 +21,7 @@ AC_CONFIG_FILES( [
 		  scripts/ppsx
 		  scripts/psx
 		  scripts/rsx
+		  scripts/sort-header
 		  scripts/sum_file_sizes
 		  scripts/sumcol
 		  scripts/tawk
