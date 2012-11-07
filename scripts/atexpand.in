@@ -25,8 +25,12 @@ Usage:
 
 Will read INPUT-FILE, and output (to STDOUT) the file,
 after expanding TABS to spaces, ensuring adequete spaces are
-inserted to align all fields properly (uses 'detect_Tab_stops'
+inserted to align all fields properly (uses 'detect_tab_stops'
 to calculate tab expansion).
+
+Equivalent to:
+  expand -tN1,N2,N3,N4,N5,... INPUT-FILE
+while automatically calculating N1,N2,N3,N4 for optimal viewing.
 
 "
 
