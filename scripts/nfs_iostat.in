@@ -1,5 +1,26 @@
 #!/bin/sh
 
+VERSION=@VERSION@
+
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+nfs_iostat - Friendly monitoring of NFS I/O statistics
+Version: $VERSION
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
+
+Usage:
+  $BASE
+
+Will print NFS I/O statistics every 1 second.
+
+"
+
+    exit
+fi
+
 ## Prints NFS activelty (iostat -n),
 ## with pretty formatting (accomodating long-named NFS mounts)
 ##
