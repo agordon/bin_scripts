@@ -18,6 +18,7 @@ AC_CONFIG_FILES( [
 		  scripts/filetype_size_breakdown
 		  scripts/list_columns
 		  scripts/make_balloon
+		  scripts/multijoin
 		  scripts/nfs_iostat
 		  scripts/ppsx
 		  scripts/psx

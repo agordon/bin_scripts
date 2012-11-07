@@ -14,6 +14,7 @@ bin_SCRIPTS = \
 	filetype_size_breakdown \
 	list_columns \
 	make_balloon \
+	multijoin \
 	nfs_iostat \
 	ppsx \
 	psx \
