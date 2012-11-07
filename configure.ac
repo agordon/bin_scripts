@@ -23,6 +23,7 @@ AC_CONFIG_FILES( [
 		  scripts/rsx
 		  scripts/sum_file_sizes
 		  scripts/sumcol
+		  scripts/tawk
 		  scripts/xtime
 		  ] )
 

@@ -19,6 +19,7 @@ bin_SCRIPTS = \
 	rsx \
 	sum_file_sizes \
 	sumcol \
+	tawk \
 	xtime
 
 
