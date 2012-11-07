@@ -11,3 +11,22 @@ config.status
 aclocal.m4
 autom4te.cache/*
 
+## The final scripts (after autotools' substitutions)
+## no need to track them (they are generated from the scripts/*.in files)
+scripts/atexpand
+scripts/atless
+scripts/detect_tab_stops
+scripts/dict
+scripts/dudirs
+scripts/filetype_size_breakdown
+scripts/list_columns
+scripts/make_balloon
+scripts/nfs_iostat
+scripts/ppsx
+scripts/psx
+scripts/rsx
+scripts/sum_file_sizes
+scripts/sumcol
+scripts/xtime
+
+

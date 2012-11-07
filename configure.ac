@@ -9,7 +9,21 @@ AC_SUBST(VERSION)
 AC_CONFIG_FILES( [
 		  Makefile
 		  scripts/Makefile
+		  scripts/atexpand
+		  scripts/atless
+		  scripts/detect_tab_stops
+		  scripts/dict
+		  scripts/dudirs
+		  scripts/filetype_size_breakdown
 		  scripts/list_columns
+		  scripts/make_balloon
+		  scripts/nfs_iostat
+		  scripts/ppsx
+		  scripts/psx
+		  scripts/rsx
+		  scripts/sum_file_sizes
+		  scripts/sumcol
+		  scripts/xtime
 		  ] )
 
 dnl AC_CONFIG_FILES([foo], [chmod +x foo])
