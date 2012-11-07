@@ -4,8 +4,44 @@
 ## This script calculates how much disk space is used by each file type (e.g. "txt", "fq")
 ##
 
-find -type f -printf "%f\t%s\n" |
-	perl -npe 's/.*\.([^\.]+)\t/\1\t/'  |
+VERSION=@VERSION@
+
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+filetype_size_breakdown - Summarize disk-usage by file type.
+Version: $VERSION
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
+
+Usage:
+  $BASE
+  $BASE [DIRECTORY]
+
+Will print summary of disk usage by each file extension,
+either in the current directory or in the specified directory.
+
+Example:
+ $BASE /tmp/
+ txt	609.2K
+ [no_extension]	179.3K
+ pdf	53.8K
+ png	4.0K
+ ini	681
+ log	379
+
+"
+
+    exit
+fi
+
+SRC=$1
+[ -z "$SRC" -o -d "$SRC" ] || { echo "Error: '$SRC' is not a valid directory'" >&2 ; exit 1 ; }
+
+find $SRC -type f -printf "%f\t%s\n" |
+	awk -v OFS="\t" -v FS="\t" '$1~/\./ { gsub(/.*\./,"",$1); print $1, $2 ; next }
+	     { print "[no_extension]", $2 }' |
 	sort -k1V,1 |
 	groupBy -g 1 -o sum -c 2 |
 	sort -k2nr,2 |
