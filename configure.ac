@@ -1,5 +1,8 @@
 
-AC_INIT([gordon_bin_scripts],[0.1.0],[gordon@cshl.edu])
+AC_INIT([gordon_bin_scripts],
+        m4_esyscmd([config/git-version-gen .tarball-version]),
+	[gordon@cshl.edu])
+
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE([])
 AC_CONFIG_MACRO_DIR([m4])

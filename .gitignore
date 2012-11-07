@@ -5,7 +5,8 @@ scripts/Makefile
 scripts/Makefile.in
 INSTALL
 COPYING
-config/*
+config/install-sh
+config/missing
 config.log
 config.status
 aclocal.m4
