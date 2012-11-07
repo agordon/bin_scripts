@@ -11,6 +11,7 @@ config.log
 config.status
 aclocal.m4
 autom4te.cache/*
+.version
 
 ## The final scripts (after autotools' substitutions)
 ## no need to track them (they are generated from the scripts/*.in files)
