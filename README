@@ -17,6 +17,7 @@ Available scripts
 * make_balloon - easily create big empty files.
 * multijoin - combine multiple files using shared key.
 * nfs_iostat - wrapper for NFS statistics of iostat.
+* pss - 'ps' with nicer output and easy filtering.
 * ppsx - copy user+hostname+fullpath of file/dir to clipboard.
 * psx - copy fullpath of file/dir to clipboard.
 * rsx - copy rsync-compatible URL of file/dir to clipboard.
