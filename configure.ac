@@ -34,6 +34,7 @@ AC_CONFIG_FILES( [
 		  scripts/nfs_iostat
 		  scripts/ppsx
 		  scripts/psx
+		  scripts/pss
 		  scripts/rsx
 		  scripts/sort-header
 		  scripts/sum_file_sizes

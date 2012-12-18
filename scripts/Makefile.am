@@ -21,6 +21,7 @@ bin_SCRIPTS = \
 	multijoin \
 	nfs_iostat \
 	ppsx \
+	pss \
 	psx \
 	rsx \
 	sort-header \

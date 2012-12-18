@@ -28,6 +28,7 @@ scripts/make_balloon
 scripts/multijoin
 scripts/nfs_iostat
 scripts/ppsx
+scripts/pss
 scripts/psx
 scripts/rsx
 scripts/sort-header

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+pss - Process Status (ps) with specific output
+Version: @VERSION@
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: AGPLv3+
+
+Usage:
+  $BASE
+  $BASE [TEXT]
+
+Runs 'ps ax' (with some extra formatting options), and optionally filters for
+TEXT in the output. PID, Username, CPU time, Start time, full command-line are
+printed.
+
+Example:
+  $BASE fox
+
+Will print any process that has 'fox' in its 'ps' line (e.g. username has 'fox'
+or command-line has 'fox' in it).
+
+"
+
+    exit
+fi
+
+PS_FORMAT=pid,user,state,pcpu,rsz,time,stime,cmd
+
+if [ -z "$1" ]; then
+	# No parameter: print all processes
+	ps -o $PS_FORMAT ax
+	exit
+fi
+
+TEXT=$1
+SAFE=${TEXT//[^A-Za-z0-9_]}
+
+SCRIPT_PID=$$
+
+# The two extra checks will discard the current script and the awk program.
+# not perfect, but acceptable (the 'ps' process might be printed)
+AWK_PROG="NR==1 || ( /${SAFE}/ && (\$1 != ${SCRIPT_PID}) && (\$1 != PROCINFO[\"pid\"]) )"
+
+ps -o $PS_FORMAT ax | awk -v IGNORECASE=1 "$AWK_PROG"
