@@ -18,5 +18,5 @@ aclocal -I m4
 echo "- autoconf."
 autoconf
 echo "- automake."
-automake --foreign
+automake -a --foreign
 
