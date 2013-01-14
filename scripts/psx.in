@@ -7,7 +7,7 @@ ppsx - Copy full path of file/dir name to clipboard
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3+
+License: @LICENSE@
 
 Usage:
   $BASE

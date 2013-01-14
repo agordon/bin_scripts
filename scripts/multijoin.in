@@ -8,6 +8,7 @@ use File::Basename;
 use Sort::Key::Natural qw(natsort);
 
 my $version = '@VERSION@';
+my $license = '@LICENSE@';
 my $field_sep = "\t";
 my $key_column;
 my @values_columns;
@@ -209,7 +210,7 @@ sub show_help()
 	print<<EOF;
 Multi-File join, version $version
 Copyright (C) 2012 - A. Gordon (gordon at cshl dot edu)
-License AGPLv3+: Affero GPL version 3 or later (http://www.gnu.org/licenses/agpl.html)
+License $license
 
 Usage:
  multijoin [OPTIONS] -k N -v V1,V2,Vn,..  FILE1  FILE2  ... FILEn

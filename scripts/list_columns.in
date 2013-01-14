@@ -8,7 +8,7 @@ list-columns - list the field/column names in a given file, based on the first l
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3+
+License: @LICENSE@
 
 Usage examples:
  $BASE [INPUT-FILE]

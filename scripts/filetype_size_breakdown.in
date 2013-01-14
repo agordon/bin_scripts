@@ -11,7 +11,7 @@ filetype_size_breakdown - Summarize disk-usage by file type.
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3+
+License: @LICENSE@
 
 Usage:
   $BASE

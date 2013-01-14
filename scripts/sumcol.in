@@ -7,6 +7,7 @@ use File::Basename qw/basename/;
 use Number::Bytes::Human qw/format_bytes/;
 
 my $VERSION='@VERSION@';
+my $LICENSE='@LICENSE@';
 
 my $skip_first_line = undef ;
 my $find_first_numeric_column = 1;
@@ -21,7 +22,7 @@ sumcol: sum the values in a given column.
 Version: $VERSION
 
 Copyright (C) 2012  A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3 or later.
+License: $LICENSE
 
 This scripts reads the input file (or STDIN),
 detects the first numeric column, and prints the sum of the values

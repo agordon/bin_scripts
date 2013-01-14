@@ -6,6 +6,7 @@ use Getopt::Long;
 use File::Basename qw/basename/;
 
 my $VERSION = '@VERSION@';
+my $LICENSE = '@LICENSE@';
 
 my $lines_to_read = 100 ;
 my $min_field_length = 0 ;
@@ -20,7 +21,7 @@ Automatic Tab-stop scanner
 Version: $VERSION
 
 Copyright (C) 2012  A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3 or later.
+License: $LICENSE
 
 This script scans a tabular text file, and prints the optimal tab-stops as
 a comma-separated list.

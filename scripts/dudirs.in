@@ -7,7 +7,7 @@ dudirs - Friendly directory disk usage report
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3+
+License: @LICENSE@
 
 Usage:
   $BASE

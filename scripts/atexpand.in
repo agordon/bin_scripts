@@ -6,7 +6,7 @@
 ## See "detect_tab_stops --help" for details.
 ##
 ## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
-## License: AGPLv3 or later
+## License: @LICENSE@
 
 FILE=$1
 if [ -z "$FILE" -o "$1" = "-h" -o "$1" = "--help" ]; then
@@ -16,7 +16,7 @@ atexpand - Print a file, with automatic tab expantion
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3+
+License: @LICENSE@
 
 Usage:
   $BASE [INPUT-FILE]

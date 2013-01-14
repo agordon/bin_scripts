@@ -30,6 +30,7 @@ sub read_line_non_buffered();
 ##
 my $PROGRAM="sort-header";
 my $VERSION='@VERSION@';
+my $LICENSE='@LICENSE@';
 
 my $check_only=undef;
 my $input_file=undef;
@@ -121,7 +122,7 @@ sub show_version()
 print<<EOF;
 $PROGRAM $VERSION
 Copyright (C) 2010 A. Gordon (gordon\@cshl.edu)
-License AGPLv3+: Affero GPL version 3 or later (http://www.gnu.org/licenses/agpl.html)
+License $LICENSE
 
 To see the GNU's sort version, run:
 	sort --version

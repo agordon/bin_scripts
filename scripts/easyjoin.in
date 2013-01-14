@@ -2,7 +2,7 @@
 ## EASY Join -
 ## Join with automatic pre-sorting of both files
 ## Copyright (C) 2010 A. Gordon (gordon@cshl.edu)
-## license: AGPLv3+
+## license: @LICENSE@
 use strict;
 use warnings;
 use Data::Dumper;
@@ -21,6 +21,7 @@ sub cleanup_files(@);
 
 my $PROGRAM="easyjoin";
 my $VERSION='@VERSION@';
+my $LICENSE='@LICENSE@';
 
 my $debug=undef;
 my $HEADER=undef;
@@ -121,7 +122,7 @@ sub show_version()
 print<<EOF;
 $PROGRAM $VERSION
 Copyright (C) 2010 A. Gordon (gordon\@cshl.edu)
-License AGPLv3+: Affero GPL version 3 or later (http://www.gnu.org/licenses/agpl.html)
+License $LICENSE
 
 To see the GNU's join version, run:
 	join --version

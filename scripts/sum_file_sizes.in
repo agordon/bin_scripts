@@ -9,7 +9,7 @@ sum_file_sizes - Prints the total size of all specified files
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: AGPLv3+
+License: @LICENSE@
 
 Usage:
  $BASE \"*.txt\"
