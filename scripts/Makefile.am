@@ -28,6 +28,7 @@ bin_SCRIPTS = \
 	sum_file_sizes \
 	sumcol \
 	tawk \
+	tardir \
 	tuniq \
 	xtime \
 	xxcat

@@ -25,6 +25,7 @@ Available scripts
 * sum_file_sizes - sum the size of files.
 * sumcol - sum the values in a column of input file.
 * tawk - AWK wrapper, with input/output field separators set to TAB.
+* tardir - packs current directory into a time-stamped tarball.
 * tuniq - UNIQ wrapper, with TAB output.
 * xtime - xtime wrapper, with friendlier output.
 * xxcat - 'cat' wrapper, with auto de-compression of gzip/bzip2/xz files.

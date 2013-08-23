@@ -1,0 +1,67 @@
+#!/bin/bash
+
+##
+## Packs the files in the current directory into a time-staped tarball.
+## Prints the tarball name on the screen
+## In the tarball, the files will be prefixed with a directory AND a time-stamp.
+##
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+	BASE=$(basename $0)
+	echo "
+tardir - Packs the files in the current directory into a tar-ball.
+Version: @VERSION@
+
+Copyright (C) 2013, A. Gordon ( gordon at cshl dot edu )
+License: @LICENSE@
+
+Usage:
+  $BASE
+
+All files in the current directroy will be packaged into a tar-ball.
+
+1. The tarball wil be named as the current directory, with a time-stamp.
+2. The files in the tarball will have the time-stamp directrory prefix.
+3. The name of the tarball will be printed to screen.
+4. Hidden directories and files (e.g. '.git' and '.hg') are skipped.
+
+Example:
+
+# Given the following directory:
+
+ $ cd my_project
+ $ find
+ 1.txt
+ 2.txt
+ 3/3.txt
+
+Running $BASE will create 'my_project_2013-08-31_101259.tar.bz2',
+with the following files:
+ my_project_2013-08-31_101259/1.txt
+ my_project_2013-08-31_101259/2.txt
+ my_project_2013-08-31_101259/3/3.txt
+
+"
+    exit
+fi
+
+# Get the name of the current directory
+BASE=$(basename "$PWD") || exit
+
+# Add time-stamp
+BASETIME=${BASE}_$(date +%F_%H%M%S) || exit
+
+# Name of the final Tarball output file
+TARBALL=${BASETIME}.tar.bz2
+
+
+## The "--transform" adds the time-stamped directory prefix to each file name.
+## The "$(find)" returns a list of files to compress, skipping hidden directories (e.g. ".git" ".hg")
+##   and preious tar-balls.
+
+tar -cjvf "$TARBALL" \
+    --transform "s;\./;$BASETIME/;" \
+    $( find . \( ! -regex '.*/\..*' \) \( ! -regex "^./${BASE}.*tar\.bz2" \) -type f ) || exit
+
+echo "Done!"
+echo "  Tarball = $TARBALL"
+echo

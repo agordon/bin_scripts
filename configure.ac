@@ -42,6 +42,7 @@ AC_CONFIG_FILES( [
 		  scripts/sum_file_sizes
 		  scripts/sumcol
 		  scripts/tawk
+		  scripts/tardir
 		  scripts/tuniq
 		  scripts/xtime
 		  scripts/xxcat
