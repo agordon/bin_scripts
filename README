@@ -51,6 +51,9 @@ When using the GIT repository:
  $ make
  $ sudo make install
 
+When using HomeBrew/LinuxBrew:
+
+ $ brew install --HEAD https://raw.github.com/agordon/bin_scripts/master/gordon_bin_scripts.rb
 
 SOURCE
 ------

@@ -11,7 +11,8 @@
 SUBDIRS = scripts
 
 EXTRA_DIST = $(top_srcdir)/.version \
-	     bootstrap.sh
+	     bootstrap.sh \
+	     gordon_bin_scripts.rb
 
 BUILT_SOURCES = $(top_srcdir)/.version
 
