@@ -1,4 +1,10 @@
 #!/usr/bin/env perl
+
+my $COPYRIGHT="
+Copyright (C) 2012,2014 A. Gordon (assafgordon\@gmail.com)
+License: GPLv3+
+";
+
 use strict;
 use warnings;
 use Data::Dumper;
@@ -6,7 +12,6 @@ use Getopt::Long;
 use File::Basename qw/basename/;
 
 my $VERSION = '@VERSION@';
-my $LICENSE = '@LICENSE@';
 
 my $lines_to_read = 100 ;
 my $min_field_length = 0 ;
@@ -19,10 +24,7 @@ my $base = basename($0);
 print<<"EOF";
 Automatic Tab-stop scanner
 Version: $VERSION
-
-Copyright (C) 2012  A. Gordon ( gordon at cshl dot edu )
-License: $LICENSE
-
+$COPYRIGHT
 This script scans a tabular text file, and prints the optimal tab-stops as
 a comma-separated list.
 

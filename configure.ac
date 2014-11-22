@@ -1,4 +1,4 @@
-dnl   Copyright (C) 2012 Assaf Gordon <gordon@cshl.edu>
+dnl   Copyright (C) 2012-2014 Assaf Gordon <assafgordon@gmail.com>
 dnl
 dnl   This file is free software; as a special exception the author gives
 dnl   unlimited permission to copy and/or distribute it, with or without
@@ -10,15 +10,13 @@ dnl   implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 AC_INIT([gordon_bin_scripts],
         m4_esyscmd([config/git-version-gen .tarball-version]),
-	[gordon@cshl.edu])
+	[assafgordon@gmail.com])
 
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE([])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_LN_S
-
-AC_SUBST(LICENSE,[AGPLv3-or-later])
 
 AC_SUBST(VERSION)
 

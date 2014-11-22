@@ -1,26 +1,22 @@
 #!/bin/bash
-##
-## Helper script to automatically view a tabular file
-## with properly tabulated fields.
-## See "detect_tab_stops --help" for details.
-##
-## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
-## License: @LICENSE@
+
+COPYRIGHT="
+Copyright (C) 2013-2014 A. Gordon (assafgordon@gmail.com)
+License: GPLv3+
+"
 
 ##
 ## Packs the files in the current directory into a time-staped tarball.
 ## Prints the tarball name on the screen
 ## In the tarball, the files will be prefixed with a directory AND a time-stamp.
 ##
+
 if [ "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
 	echo "
 tardir - Packs the files in the current directory into a tar-ball.
 Version: @VERSION@
-
-Copyright (C) 2013, A. Gordon ( gordon at cshl dot edu )
-License: @LICENSE@
-
+$COPYRIGHT
 Usage:
   $BASE
 

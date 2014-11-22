@@ -1,9 +1,9 @@
 #!/bin/sh
 
-##
-## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
-## License: @LICENSE@
-##
+COPYRIGHT="
+Copyright (C) 2012,2014 A. Gordon (assafgordon@gmail.com)
+License: GPLv3+
+"
 
 ##
 ## This script calculates how much disk space is used by each file type \
@@ -23,10 +23,7 @@ usage()
 	echo "
 filetype_size_breakdown - Summarize disk-usage by file type.
 Version: @VERSION@
-
-Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: @LICENSE@
-
+$COPYRIGHT
 Usage:
   $BASE
   $BASE [DIRECTORY]
@@ -49,7 +46,7 @@ Example:
 
 SRC=$1
 test -z "$SRC" && die "Missing directory name. See --help for details."
-test "x$1" = "x-h" || test "x$1" = "--help" && usage
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 test -d "$SRC" || die "'$SRC' is not a valid directory."
 

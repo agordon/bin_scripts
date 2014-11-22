@@ -1,22 +1,22 @@
 #!/bin/sh
 
+COPYRIGHT="
+Copyright (C) 2012-2014 A. Gordon (assafgordon@gmail.com)
+License: GPLv3+
+"
+
 ##
 ## Helper script to automatically view a tabular file
 ## with properly tabulated fields.
 ## See "detect_tab_stops --help" for details.
 ##
-## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
-## License: @LICENSE@
 
 if [ "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
 	echo "
 pss - Process Status (ps) with specific output
 Version: @VERSION@
-
-Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
-License: @LICENSE@
-
+$COPYRIGHT
 Usage:
   $BASE
   $BASE [TEXT]

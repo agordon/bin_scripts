@@ -1,8 +1,12 @@
 #!/usr/bin/env perl
+
+my $COPYRIGHT="
+Copyright (C) 2010-2014 A. Gordon (assafgordon\@gmail.com)
+license: GPLv3+
+";
+
 ## EASY Join -
 ## Join with automatic pre-sorting of both files
-## Copyright (C) 2010 A. Gordon (gordon@cshl.edu)
-## license: @LICENSE@
 use strict;
 use warnings;
 use Data::Dumper;
@@ -21,7 +25,7 @@ sub cleanup_files(@);
 
 my $PROGRAM="easyjoin";
 my $VERSION='@VERSION@';
-my $LICENSE='@LICENSE@';
+my $LICENSE='GPLv3+';
 
 my $debug=undef;
 my $HEADER=undef;
@@ -121,9 +125,7 @@ sub show_version()
 {
 print<<EOF;
 $PROGRAM $VERSION
-Copyright (C) 2010 A. Gordon (gordon\@cshl.edu)
-License $LICENSE
-
+$COPYRIGHT
 To see the GNU's join version, run:
 	join --version
 EOF
