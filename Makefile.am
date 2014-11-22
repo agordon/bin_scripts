@@ -8,13 +8,36 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-SUBDIRS = scripts
-
 EXTRA_DIST = $(top_srcdir)/.version \
 	     bootstrap.sh \
 	     gordon_bin_scripts.rb
 
 BUILT_SOURCES = $(top_srcdir)/.version
+
+bin_SCRIPTS = \
+	scripts/atexpand \
+	scripts/atless \
+	scripts/detect_tab_stops \
+	scripts/dict \
+	scripts/dudirs \
+	scripts/easyjoin \
+	scripts/filetype_size_breakdown \
+	scripts/list_columns \
+	scripts/make_balloon \
+	scripts/multijoin \
+	scripts/nfs_iostat \
+	scripts/ppsx \
+	scripts/pss \
+	scripts/psx \
+	scripts/rsx \
+	scripts/sort-header \
+	scripts/sum_file_sizes \
+	scripts/sumcol \
+	scripts/tawk \
+	scripts/tardir \
+	scripts/tuniq \
+	scripts/xtime \
+	scripts/xxcat
 
 $(top_srcdir)/.version:
 	            echo $(VERSION) > $@-t && mv $@-t $@

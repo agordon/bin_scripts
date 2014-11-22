@@ -22,7 +22,6 @@ AC_SUBST(VERSION)
 
 AC_CONFIG_FILES( [
 		  Makefile
-		  scripts/Makefile
 		  scripts/atexpand
 		  scripts/atless
 		  scripts/detect_tab_stops
