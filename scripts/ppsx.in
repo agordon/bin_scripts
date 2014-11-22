@@ -153,7 +153,7 @@ FULLPATH=$(perl -MCwd -e '$f=Cwd::realpath($ARGV[0]);
     || die "failed to resovle absolute path of '$SRC'"
 
 # Resolve FQDN, if needed
-if test "$method" = rsx || test "$method" = psx ; then
+if test "$method" = rsx || test "$method" = ppsx ; then
     FQDN=$(hostname -f) || die "hostname failed"
 
     if echo "$FQDN" | grep -Eq '\.ec2\.internal$|amazonws\.com$' ; then
@@ -207,5 +207,5 @@ esac
 ##
 ## Copy the data to the clipboard
 ##
-echo "$DATA" | $copy_method \
+echo "$DATA" | tr -d '\n' | $copy_method \
     || die "failed to copy data to clipboard"

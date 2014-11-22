@@ -28,8 +28,6 @@ bin_SCRIPTS = \
 	scripts/nfs_iostat \
 	scripts/ppsx \
 	scripts/pss \
-	scripts/psx \
-	scripts/rsx \
 	scripts/sort-header \
 	scripts/sum_file_sizes \
 	scripts/sumcol \
@@ -38,6 +36,13 @@ bin_SCRIPTS = \
 	scripts/tuniq \
 	scripts/xtime \
 	scripts/xxcat
+
+## During installation, create symlinks
+## from 'ppsx' to 'psx' and 'rsx'.
+install-exec-hook:
+	cd $(DESTDIR)$(bindir) && \
+	  $(LN_S) ppsx psx && \
+	  $(LN_S) ppsx rsx
 
 $(top_srcdir)/.version:
 	            echo $(VERSION) > $@-t && mv $@-t $@

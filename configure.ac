@@ -16,6 +16,8 @@ AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE([])
 AC_CONFIG_MACRO_DIR([m4])
 
+AC_PROG_LN_S
+
 AC_SUBST(LICENSE,[AGPLv3-or-later])
 
 AC_SUBST(VERSION)
@@ -34,9 +36,7 @@ AC_CONFIG_FILES( [
 		  scripts/multijoin
 		  scripts/nfs_iostat
 		  scripts/ppsx
-		  scripts/psx
 		  scripts/pss
-		  scripts/rsx
 		  scripts/sort-header
 		  scripts/sum_file_sizes
 		  scripts/sumcol
