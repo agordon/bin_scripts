@@ -12,7 +12,12 @@
 ##  1. Accept multiple files as parameters
 ##  2. Add "pv" (pipeviewer) visualization
 
-set -o pipefail
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
 
 INPUT="$1"
 if [ -z "$INPUT" -o "$1" = "--help" -o "$1" = "-h" ] ; then
@@ -46,21 +51,28 @@ Example:
 "
 	exit 1
 fi
-[ -r "$INPUT" ] || { echo "Error: can't find input file '$INPUT'" >&2 ; exit 1 ; }
 
-[ -f "$INPUT" ] || { echo "Error: input file '$INPUT' is not a regular file (this script can't handle pipes, sockets, etc.)" >&2 ; exit 1 ; }
+test -r "$INPUT" || die "can't find input file '$INPUT'"
+
+test -f "$INPUT" \
+    || die "input file '$INPUT' is not a regular file" \
+            "(this script can't handle pipes, sockets, etc.)"
 
 #automatically ungzip files, in needed
-MIME=$(file -bi "$INPUT") || exit 1
+MIME=$(file -bi -- "$INPUT") || die "'file' failed on '$INPUT'"
 
-if [ "$MIME" = "application/x-gzip" ]; then
-	gunzip -d -c "$INPUT" || exit 1
-elif [ "$MIME" = "application/x-bzip2" ]; then
-	bunzip2 -d -c "$INPUT" || exit 1
-elif [ "$MIME" = "application/x-xz" ]; then
-	#NOTE: older 'magic' doesn't recognize XZ archives, this is likely not to work on CentOS 5.5
-	xz -d -c "$INPUT" || exit 1
+# Trim optional character set information
+MIME=${MIME%; charset=*}
+
+if [ "$MIME" = "application/gzip" ] \
+    || [ "$MIME" = "application/x-gzip" ] ; then
+	gunzip -d -c "$INPUT" || die "gunzip failed on '$INPUT'"
+elif [ "$MIME" = "application/x-bzip2" ] \
+    || [ "$MIME" = "application/bzip2" ] ; then
+	bunzip2 -d -c "$INPUT" || die "bunzip2 failed on '$INPUT'"
+elif [ "$MIME" = "application/x-xz" ] \
+    || [ "$MIME" = "application/xz" ] ; then
+	xz -d -c "$INPUT" || die "xz failed on '$INPUT'"
 else
-	cat "$INPUT" || exit 1
+	cat "$INPUT" || die "cat failed on '$INPUT'"
 fi
-
