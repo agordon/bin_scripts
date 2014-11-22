@@ -1,9 +1,25 @@
 #!/bin/sh
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: @LICENSE@
+
+##
+## Helper script to copy the given file (or current directory)
+## to the clipboard, in rsync-ready format.
+##
+
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+usage()
+{
 	BASE=$(basename $0)
 	echo "
-ppsx - Copy file/dir name to clipboard, in RSYNC format.
+rsx - Copy file/dir name to clipboard, in RSYNC format.
 Version: @VERSION@
 
 Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
@@ -34,18 +50,21 @@ Note:
 "
 
     exit
-fi
+}
 
+test "x$1" = "x-h" || test "x$1" = "--help" && usage
 
 if [ -z "$1" ]; then
 	# No parameter: copy current directory to clipboard
 	FULLPATH=$PWD
 else
 	# Got a command-line parameter: assume it's a file name
-	[ -e "$1" ] || { echo "File '$1' not found!" >&2 ; exit 1 ; }
+	test -e "$1" || die "File '$1' not found!"
 
 	# Resolve the absolute path in a portable way
-	FULLPATH=$(perl -MCwd -e '$f=Cwd::realpath($ARGV[0]); die unless -e $f; print $f' "$1") || exit 1;
+	FULLPATH=$(perl -MCwd -e '$f=Cwd::realpath($ARGV[0]);
+                                  die unless -e $f; print $f' -- "$1") \
+                  die "failed to resolve absolute path of '$1'"
 fi
 
 FQDN=$(hostname -f)
