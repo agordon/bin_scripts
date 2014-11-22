@@ -12,7 +12,8 @@ License: GPLv3+
 ##
 
 # executed without input filenames/redirection - show help
-if [ \( -t 0 -a -z "$1" \) -o \( "$1" = "-h" \) -o \( "$1" = "--help" \) ] ; then
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 list-columns - list the field/column names in a given file, based on the first line.
@@ -25,7 +26,9 @@ Usage examples:
 
 "
 	exit
-fi
+}
+
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 awk -v FS="\t" '
 {

@@ -22,8 +22,8 @@ die()
     exit 1
 }
 
-INPUT="$1"
-if [ -z "$INPUT" -o "$1" = "--help" -o "$1" = "-h" ] ; then
+usage()
+{
 	BASENAME=$(basename "$0")
 	echo "$BASENAME - prints a (possibly compressed) file to STDOUT
 Version @VERSION@
@@ -51,7 +51,11 @@ Example:
 
 "
 	exit 1
-fi
+}
+
+INPUT="$1"
+test -z "$1" && die "missing file name. See --help for details."
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 test -r "$INPUT" || die "can't find input file '$INPUT'"
 

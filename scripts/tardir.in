@@ -11,7 +11,16 @@ License: GPLv3+
 ## In the tarball, the files will be prefixed with a directory AND a time-stamp.
 ##
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 tardir - Packs the files in the current directory into a tar-ball.
@@ -45,13 +54,15 @@ with the following files:
 
 "
     exit
-fi
+}
+
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 # Get the name of the current directory
-BASE=$(basename "$PWD") || exit
+BASE=$(basename -- "$PWD") || exit
 
 # Add time-stamp
-BASETIME=${BASE}_$(date +%F_%H%M%S) || exit
+BASETIME=${BASE}-$(date +%F-%H%M%S) || exit
 
 # Name of the final Tarball output file
 TARBALL=${BASETIME}.tar.bz2

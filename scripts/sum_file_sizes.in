@@ -9,7 +9,15 @@ License: GPLv3+
 ## Prints the total size used by file types
 ##
 
-if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 sum_file_sizes - Prints the total size of all specified files
@@ -28,8 +36,14 @@ NOTE:
 
 "
 	exit 0
-fi
+}
+
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
+test -z "$1" && die "missing file glob (e.g. '*.txt'). See --help for details."
 
 GLOB=$1
 
-find -iname "$GLOB" -printf "%s\n" | awk '{sum+=$1}END{print sum}' | human.py --div 1000 | sed 's/ //g'
+find -iname "$GLOB" -printf "%s\n" \
+    | awk '{sum+=$1}END{print sum}' \
+    | human.py --div 1000 \
+    | sed 's/ //g'

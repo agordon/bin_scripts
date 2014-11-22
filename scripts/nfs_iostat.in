@@ -11,7 +11,8 @@ License: GPLv3+
 ## See "detect_tab_stops --help" for details.
 ##
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 nfs_iostat - Friendly monitoring of NFS I/O statistics
@@ -23,12 +24,15 @@ Usage:
 Will print NFS I/O statistics every 1 second.
 
 "
-
     exit
-fi
+}
+
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 ## Prints NFS activelty (iostat -n),
 ## with pretty formatting (accomodating long-named NFS mounts)
 ##
-iostat -n 1 | stdbuf -o L sed 's/  */\t/g' | expand -t 40,54,65,76,87,98,109,120,131
+iostat -n 1 \
+    | stdbuf -o L sed 's/  */\t/g' \
+    | expand -t 40,54,65,76,87,98,109,120,131
 

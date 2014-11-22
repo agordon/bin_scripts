@@ -11,7 +11,8 @@ License: GPLv3+
 ## See "detect_tab_stops --help" for details.
 ##
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 dudirs - Friendly directory disk usage report
@@ -33,7 +34,8 @@ Equivalent to:
 
 "
     exit
-fi
+}
 
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 du --max-depth=1 --one-file-system  --human "$@" | sort -k1h,1

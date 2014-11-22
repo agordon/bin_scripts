@@ -132,7 +132,7 @@ case "$BASE" in
 esac
 
 ## Show usage, if needed
-test "x$1" = "x-h" || test "x$1" = "--help" && usage
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
 
 ## Determine source file/directory to use
