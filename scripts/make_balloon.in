@@ -39,15 +39,15 @@ Note:
 }
 
 SIZE=$1
-test -z "$SIZE" && die "missing SIZE parameter. See --help for detauls"
-test "x$1" = "x-h" || test "x$1" = "--help" && usage
+test -z "$SIZE" && die "missing SIZE parameter. See --help for details"
+test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
-echo "$SIZE" | grep -qE "^[0-9]+(K|KB|M|MB|G|GB|)?$" \
+echo "$SIZE" | grep -qE '^[0-9]+(K|KB|M|MB|G|GB)?$' \
     || die "invalid size '$SIZE'. See --help for details"
 
 ## find any existing ballons, create the next one
 LAST_BALLOON=$(ls balloon* 2>/dev/null \
-               | sed -r 's/balloon_?//' | sort -n | tail -n 1)
+               | sed 's/balloon_//' | sort -n | tail -n 1)
 if [ -z "$LAST_BALLOON" ]; then
 	BALLOON=1
 else
@@ -68,12 +68,13 @@ else
 	BLOCK=$(stat -c %o .) || exit 1
 
 	##Poor man's human-size expander
-	SIZE=${SIZE/GB/000000000}
-	SIZE=${SIZE/G/000000000}
-	SIZE=${SIZE/MB/000000}
-	SIZE=${SIZE/M/000000}
-	SIZE=${SIZE/K/000}
-	SIZE=${SIZE/KB/000}
+	SIZE=$(echo "$SIZE" \
+		| sed -e 's/GB$/000000000/' \
+			-e 's/G$/000000000/' \
+			-e 's/MB$/000000/' \
+			-e 's/M$/000000/' \
+			-e 's/K$/000/' \
+			-e 's/KB$/000/')
 
 	let COUNT=$SIZE/$BLOCK
 
