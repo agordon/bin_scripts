@@ -1,11 +1,21 @@
 #!/bin/sh
 
+## Copyright (C) 2012,2014   A. Gordon (gordon at cshl dot edu)
+## License: @LICENSE@
+
 ##
 ## creates a big empty/sparse file named "balloon_X"
 ##
 
-SIZE=$1
-if [ -z "$SIZE" -o "$1" = "-h" -o "$1" = "--help" ]; then
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 Make-Ballon - create big empty files in the current directory.
@@ -26,12 +36,19 @@ Note:
   (e.g. balloon_1, balloon_2, balloon_3 ... balloon_51 ...
 
 "
-
     exit
-fi
+}
+
+SIZE=$1
+test -z "$SIZE" && die "missing SIZE parameter. See --help for detauls"
+test "x$1" = "x-h" || test "x$1" = "--help" && usage
+
+echo "$SIZE" | grep -qE "^[0-9]+(K|KB|M|MB|G|GB|)?$" \
+    || die "invalid size '$SIZE'. See --help for details"
 
 ## find any existing ballons, create the next one
-LAST_BALLOON=$(ls balloon* 2>/dev/null | sed -r 's/balloon_?//' | sort -n | tail -n 1)
+LAST_BALLOON=$(ls balloon* 2>/dev/null \
+               | sed -r 's/balloon_?//' | sort -n | tail -n 1)
 if [ -z "$LAST_BALLOON" ]; then
 	BALLOON=1
 else

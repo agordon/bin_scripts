@@ -8,8 +8,15 @@
 ## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
 ## License: @LICENSE@
 
-FILE=$1
-if [ -z "$FILE" -o "$1" = "-h" -o "$1" = "--help" ]; then
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 atless - view a file (using 'less'), with automatic tab expantion
@@ -31,11 +38,14 @@ Equivalent to:
 while automatically calculating N1,N2,N3,N4 for optimal viewing.
 
 "
-
     exit
-fi
+}
 
-[ -e "$FILE" ] || { echo "Error: file '$FILE' not found." >&2 ; exit 1 ; }
-[ -r "$FILE" ] || { echo "Error: Input file must be a regular file (not a pipe/socket)" >&2 ; exit 1 ; }
+FILE=$1
+test -z "$FILE" && die "Missing input file name. See --help for details."
+test "x$1" = "x-h" || test "x$1" = "--help" && usage
 
-less -S -x$(detect_tab_stops "$FILE") "$FILE"
+test -e "$FILE" || die "file '$FILE' not found."
+test -r "$FILE" || die "Input file must be a regular file (not a pipe/socket)"
+
+less -S -x$(detect_tab_stops "$FILE") -- "$FILE"

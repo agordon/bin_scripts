@@ -1,10 +1,24 @@
 #!/bin/sh
 
 ##
-## This script calculates how much disk space is used by each file type (e.g. "txt", "fq")
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: @LICENSE@
 ##
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
+##
+## This script calculates how much disk space is used by each file type \
+## (e.g. "txt", "fq")
+##
+
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+usage()
+{
 	BASE=$(basename $0)
 	echo "
 filetype_size_breakdown - Summarize disk-usage by file type.
@@ -30,14 +44,16 @@ Example:
  log	379
 
 "
-
     exit
-fi
+}
 
 SRC=$1
-[ -z "$SRC" -o -d "$SRC" ] || { echo "Error: '$SRC' is not a valid directory'" >&2 ; exit 1 ; }
+test -z "$SRC" && die "Missing directory name. See --help for details."
+test "x$1" = "x-h" || test "x$1" = "--help" && usage
 
-find $SRC -type f -printf "%f\t%s\n" |
+test -d "$SRC" || die "'$SRC' is not a valid directory."
+
+find -- "$SRC" -type f -printf "%f\t%s\n" |
 	awk -v OFS="\t" -v FS="\t" '$1~/\./ { gsub(/.*\./,"",$1); print $1, $2 ; next }
 	     { print "[no_extension]", $2 }' |
 	sort -k1V,1 |

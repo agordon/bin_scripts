@@ -1,4 +1,11 @@
 #!/bin/bash
+##
+## Helper script to automatically view a tabular file
+## with properly tabulated fields.
+## See "detect_tab_stops --help" for details.
+##
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: @LICENSE@
 
 ##
 ## Packs the files in the current directory into a time-staped tarball.

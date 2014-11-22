@@ -1,6 +1,12 @@
 #!/bin/sh
 
-set -o pipefail
+##
+## Helper script to automatically view a tabular file
+## with properly tabulated fields.
+## See "detect_tab_stops --help" for details.
+##
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: @LICENSE@
 
 if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
 	BASE=$(basename $0)
