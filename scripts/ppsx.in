@@ -1,6 +1,53 @@
 #!/bin/sh
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
+## Copyright (C) 2012   A. Gordon (gordon at cshl dot edu)
+## License: @LICENSE@
+
+die()
+{
+    BASE=$(basename -- "$0")
+    echo "$BASE: error: $@" >&2
+    exit 1
+}
+
+usage_rsx()
+{
+	BASE=$(basename $0)
+	echo "
+rsx - Copy file/dir name to clipboard, in RSYNC format.
+Version: @VERSION@
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: @LICENSE@
+
+Usage:
+  $BASE
+  $BASE [FILE-or-DIRECTORY]
+
+Will copy the full path of the specified file/directory (or current directory)
+and the current hostname into the clipboard, in a format compatible
+with RSYNC ( rsync://user@hostname.domain/full/path/to/file ).
+
+Then it can be easily pasted into a command line.
+
+Example:
+  $BASE myfile.txt
+
+  Assuming the user is 'bob', the hostname is 'foobar.cshl.edu',
+  and the current directory is '/home/bob/documents/',
+  the program will copy the following string into the clipboard:
+     rsync://bob@foobar.cshl.edu/home/bob/documents/myfile.txt
+
+Note:
+1. Requires 'xsel' program to be installed
+2. Requires a valid X11-forwarding setting
+
+"
+    exit
+}
+
+usage_ppsx()
+{
 	BASE=$(basename $0)
 	echo "
 ppsx - Copy file/dir name to clipboard, in SCP/RSYNC format.
@@ -34,27 +81,131 @@ Note:
 "
 
     exit
-fi
+}
+
+usage_psx()
+{
+	BASE=$(basename $0)
+	echo "
+psx - Copy full path of file/dir name to clipboard
+Version: @VERSION@
+
+Copyright (C) 2012, A. Gordon ( gordon at cshl dot edu )
+License: @LICENSE@
+
+Usage:
+  $BASE
+  $BASE [FILE-or-DIRECTORY]
+
+Will copy the full path of the specified file/directory (or current directory)
+to the clipboard.
+
+Then it can be easily pasted into a command line.
+
+Example:
+  $BASE myfile.txt
+
+  Assuming the current directory is '/home/bob/documents/',
+  The program will copy the following string into the clipboard:
+     /home/bob/documents/myfile.txt
+
+Note:
+1. Requires 'xsel' program to be installed
+2. Requires a valid X11-forwarding setting
+"
+	exit
+}
+
+usage()
+{
+   case "$method" in
+     rsx)  usage_rsx ;;
+     psx)  usage_psx ;;
+     ppsx) usage_ppsx ;;
+   esac
+}
+
+##
+## Script start
+##
+
+# Determine how the script was called
+BASE=$(basename -- "$0")
+method=
+case "$BASE" in
+  rsx|psx|ppsx) method="$BASE" ;;
+  *) die "script invoked with unrecognized name '$BASE'." \
+         " Expecting rsx/psx/ppsx" ;;
+esac
+
+## Show usage, if needed
+test "x$1" = "x-h" || test "x$1" = "--help" && usage
 
 
-if [ -z "$1" ]; then
-	# No parameter: copy current directory to clipboard
-	FULLPATH=$PWD
-else
-	# Got a command-line parameter: assume it's a file name
-	[ -e "$1" ] || { echo "File '$1' not found!" >&2 ; exit 1 ; }
+## Determine source file/directory to use
+test -z "$1" && SRC="$PWD" || SRC="$1"
 
-	# Resolve the absolute path in a portable way
-	FULLPATH=$(perl -MCwd -e '$f=Cwd::realpath($ARGV[0]); die unless -e $f; print $f' "$1") || exit 1;
-fi
+test -e "$SRC" || die "file/directory '$SRC' not found"
 
-FQDN=$(hostname -f)
+# Resolve the absolute path in a portable way
+FULLPATH=$(perl -MCwd -e '$f=Cwd::realpath($ARGV[0]);
+                          die unless -e $f; print $f' -- "$SRC") \
+    || die "failed to resovle absolute path of '$SRC'"
 
-if echo "$FQDN" | egrep -q '\.ec2\.internal$|amazonws\.com$' ; then
+# Resolve FQDN, if needed
+if test "$method" = rsx || test "$method" = psx ; then
+    FQDN=$(hostname -f) || die "hostname failed"
+
+    if echo "$FQDN" | grep -Eq '\.ec2\.internal$|amazonws\.com$' ; then
         ## According to the domain name, we're likely running on the amazon EC2 cloud.
         ## The FQDN will be the internal IP, so try to get the public IP.
-        FQDN=$(curl --silent --show-error http://169.254.169.254/latest/meta-data/public-ipv4) || exit 1
+        FQDN=$(curl --silent --show-error \
+               http://169.254.169.254/latest/meta-data/public-ipv4) \
+             || die "failed to retrive FQDN from AWS meta-data server"
+    fi
+
+    ## If the hostname ends in ".local", it's likely a machine without
+    ## a Full domain name 9e.g. private laptop). In this case,
+    ## try to get its IP.
+    if echo "$FQDN" | grep -Eq '\.local$' ; then
+        ## On Mac OS X:
+        for i in $(ifconfig -l inet) ; do
+          IP=$(ipconfig getifaddr "$i")
+          ## Stop after the first successful IP
+          test -n "$IP" && break
+        done
+
+        FQDN="$IP"
+    fi
 fi
 
-printf "$USER@$FQDN:$FULLPATH" | xsel -b
+##
+## How to copy data into the clipboard ?
+##
+copy_method=
+if which xsel 1>/dev/null 2>/dev/null ; then
+    ## GNU/Linux - Use 'xsel'
+    ## TODO: also support xclip
+    copy_method="xsel -b"
+elif which pbcopy 1>/dev/null 2>/dev/null ; then
+    ## Mac OS X - Use 'pbcopy'
+    copy_method="pbcopy"
+else
+    die "Can't find xsel/pbcopy - don't know how to copy data to clipboard"
+fi
 
+##
+## Format to copy
+##
+case "$method" in
+  ppsx) DATA="$USER@$FQDN:$FULLPATH" ;;
+  psx)  DATA="$FULLPATH" ;;
+  rsx)  DATA="rsync://$USER@${FQDN}${FULLPATH}" ;;
+  *) die "internal error (method = $method)" ;;
+esac
+
+##
+## Copy the data to the clipboard
+##
+echo "$DATA" | $copy_method \
+    || die "failed to copy data to clipboard"
