@@ -40,6 +40,7 @@ AC_CONFIG_FILES( [
 		  scripts/sumcol
 		  scripts/tawk
 		  scripts/tardir
+		  scripts/tjoin
 		  scripts/tuniq
 		  scripts/xtime
 		  scripts/xxcat

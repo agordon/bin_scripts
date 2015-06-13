@@ -35,6 +35,8 @@ scripts/sort-header
 scripts/sum_file_sizes
 scripts/sumcol
 scripts/tawk
+scripts/tardir
+scripts/tjoin
 scripts/tuniq
 scripts/xtime
 scripts/xxcat
