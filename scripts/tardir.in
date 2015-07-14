@@ -27,9 +27,10 @@ tardir - Packs the files in the current directory into a tar-ball.
 Version: @VERSION@
 $COPYRIGHT
 Usage:
-  $BASE
+  $BASE [DIR]
 
-All files in the current directroy will be packaged into a tar-ball.
+All files in directory DIR (or current directroy if non specified)
+will be packaged into a tar-ball with a unique name.
 
 1. The tarball wil be named as the current directory, with a time-stamp.
 2. The files in the tarball will have the time-stamp directrory prefix.
@@ -58,23 +59,37 @@ with the following files:
 
 test "x$1" = "x-h" || test "x$1" = "x--help" && usage
 
-# Get the name of the current directory
-BASE=$(basename -- "$PWD") || exit
+if test -z "$1" ; then
+    # Get the name of the current directory
+    BASE=$(basename -- "$PWD") || exit
+    DIRNAME=.
+    echo "Archiving current directory '$PWD'..."
+else
+    # Use given parameter
+    BASE=$(basename -- "$1") || exit
+    test -d "$1" || die "error: '$1' is not a directory"
+    DIRNAME="$1"
+    echo "Archiving directory '$1'..."
+fi
 
 # Add time-stamp
 BASETIME=${BASE}-$(date +%F-%H%M%S) || exit
 
 # Name of the final Tarball output file
-TARBALL=${BASETIME}.tar.bz2
+TARBALL="$PWD/${BASETIME}.tar.bz2"
 
 
 ## The "--transform" adds the time-stamped directory prefix to each file name.
-## The "$(find)" returns a list of files to compress, skipping hidden directories (e.g. ".git" ".hg")
-##   and preious tar-balls.
+## The "find" returns a list of files to compress, skipping hidden directories (e.g. ".git" ".hg")
+##   and previous tar-balls.
 
-tar -cjvf "$TARBALL" \
-    --transform "s;\./;$BASETIME/;" \
-    $( find . \( ! -regex '.*/\..*' \) \( ! -regex "^./${BASE}.*tar\.bz2" \) -type f ) || exit
+cd "$DIRNAME"
+find . \( ! -regex '.*/\..*' \) \
+       \( ! -regex "^./${BASE}.*tar\.*" \) -type f | \
+     tar --files-from=- \
+         -cjf "$TARBALL" \
+         --transform "s;\./;$BASETIME/;" \
+     || die "failed to archive directory '$DIRNAME' into '$TARBALL'"
 
 echo "Done!"
 echo "  Tarball = $TARBALL"
