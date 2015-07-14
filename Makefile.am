@@ -41,8 +41,8 @@ bin_SCRIPTS = \
 ## from 'ppsx' to 'psx' and 'rsx'.
 install-exec-hook:
 	cd $(DESTDIR)$(bindir) && \
-	  $(LN_S) ppsx psx && \
-	  $(LN_S) ppsx rsx
+	  $(LN_S) -f ppsx psx && \
+	  $(LN_S) -f ppsx rsx
 
 $(top_srcdir)/.version:
 	            echo $(VERSION) > $@-t && mv $@-t $@
