@@ -15,6 +15,7 @@ EXTRA_DIST = $(top_srcdir)/.version \
 BUILT_SOURCES = $(top_srcdir)/.version
 
 bin_SCRIPTS = \
+	scripts/auto-build-install \
 	scripts/atexpand \
 	scripts/atless \
 	scripts/detect_tab_stops \

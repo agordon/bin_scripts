@@ -16,6 +16,7 @@ gordon_bin_scripts-*.tar.gz
 
 ## The final scripts (after autotools' substitutions)
 ## no need to track them (they are generated from the scripts/*.in files)
+scripts/auto-build-install
 scripts/atexpand
 scripts/atless
 scripts/detect_tab_stops
@@ -38,7 +39,7 @@ scripts/tawk
 scripts/tardir
 scripts/tjoin
 scripts/tuniq
+scripts/tardir
 scripts/xtime
 scripts/xxcat
-
 
