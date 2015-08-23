@@ -8,6 +8,7 @@ Available scripts
 
 * atexpand - like 'expand', but with auto-tab width detection.
 * atless - like 'less', but with auto-tab width detection.
+* auto-build-install - downloads,builds,install a tarball from http/ftp/s3/git
 * detect_tab_stops - help script to detect proper tab width.
 * dict - like 'dict', but pipes to 'less'.
 * dudirs - friendlier output of 'du'.
@@ -36,8 +37,8 @@ INSTALLATION
 
 When using the released tarball version:
 
- $ tar -xzvf bin_scripts-X.Y.Z.tar.gz
- $ cd bin_scripts-X.Y.Z
+ $ tar -xzvf gordon-bin-scripts-X.Y.Z.tar.gz
+ $ cd gordon-bin-scripts-X.Y.Z
  $ ./configure
  $ make
  $ sudo make install
