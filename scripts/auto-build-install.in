@@ -154,7 +154,6 @@ validate_simple_name "$BASENAME"
 # works on all tested systems (non GNU as well)
 DIR=$(mktemp -d -t "${BASENAME}.XXXXXX") \
     || die "failed to create temporary directory"
-cd "$DIR" || exit 1
 
 echo "Temp build directory = $DIR"
 
@@ -164,6 +163,7 @@ echo "Temp build directory = $DIR"
 ## Is the source a git repository or a local TARBALL file?
 if echo "$SOURCE" | grep -E -q '^git://|\.git$' ; then
     ## a Git repository source
+    cd "$DIR" || exit 1
     git ls-remote "$SOURCE" >/dev/null \
         || die "source ($SOURCE) is not a valid remote git repository"
     GIT_REPO=$SOURCE
@@ -172,6 +172,7 @@ elif echo "$SOURCE" | \
     grep -E -q '^(ht|f)tp://[A-Za-z0-9\_\.\/\~:-]*\.tar\.(gz|bz2|xz)' ; then
     ## a remote tarball source
     TMP1=$(basename "$SOURCE") || die "failed to get basename of '$SOURCE'"
+    cd "$DIR" || exit 1
     wget -O "$TMP1" "$SOURCE" || die "failed to download '$SOURCE'"
     TARBALL="$TMP1"
 
@@ -179,6 +180,7 @@ elif echo "$SOURCE" | \
     grep -E -q '^s3://[A-Za-z0-9\_\.\/\~:-]*\.tar\.(gz|bz2|xz)' ; then
     ## an AWS/S3 remote tarball source
     TMP1=$(basename "$SOURCE") || die "failed to get basename of '$SOURCE'"
+    cd "$DIR" || exit 1
     aws s3 cp "$SOURCE" "$TMP1" || die "failed to S3 download '$SOURCE'"
     TARBALL="$TMP1"
 
@@ -186,6 +188,7 @@ else
     ## assume a local tarball source
     [ -e "$SOURCE" ] || die "source file $SOURCE not found"
     cp "$SOURCE" "$DIR/" || die "failed to copy '$SOURCE' to '$DIR/'"
+    cd "$DIR" || exit 1
     TARBALL=$(basename "$SOURCE") || exit 1
 fi
 
