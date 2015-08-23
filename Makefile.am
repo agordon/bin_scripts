@@ -9,7 +9,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 EXTRA_DIST = $(top_srcdir)/.version \
-	     bootstrap.sh \
+	     bootstrap \
 	     gordon_bin_scripts.rb
 
 BUILT_SOURCES = $(top_srcdir)/.version

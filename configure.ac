@@ -13,7 +13,7 @@ AC_INIT([gordon_bin_scripts],
 	[assafgordon@gmail.com])
 
 AC_CONFIG_AUX_DIR(config)
-AM_INIT_AUTOMAKE([])
+AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_LN_S
