@@ -257,8 +257,10 @@ fi
 ##
 ## Configure
 ##
-./configure $configure_params \
-    || die "./configure failed"
+if test -e "./configure" ; then
+    ./configure $configure_params \
+        || die "./configure failed"
+fi
 
 ##
 ## Make
