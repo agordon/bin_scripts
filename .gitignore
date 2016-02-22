@@ -15,6 +15,7 @@ autom4te.cache/*
 gordon_bin_scripts-*.tar.gz
 gordon-bin-scripts-*.tar.gz
 nohup.out
+*~
 
 ## The final scripts (after autotools' substitutions)
 ## no need to track them (they are generated from the scripts/*.in files)
