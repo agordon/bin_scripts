@@ -18,6 +18,7 @@ bin_SCRIPTS = \
 	scripts/auto-build-install \
 	scripts/atexpand \
 	scripts/atless \
+	scripts/create-ssha-passwd \
 	scripts/detect_tab_stops \
 	scripts/dict \
 	scripts/dudirs \

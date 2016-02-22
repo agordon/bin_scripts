@@ -9,6 +9,7 @@ Available scripts
 * atexpand - like 'expand', but with auto-tab width detection.
 * atless - like 'less', but with auto-tab width detection.
 * auto-build-install - downloads,builds,install a tarball from http/ftp/s3/git
+* create-ssha-passwd - creates SSHA-encoded password lines (e.g. for NGINX)
 * detect_tab_stops - help script to detect proper tab width.
 * dict - like 'dict', but pipes to 'less'.
 * dudirs - friendlier output of 'du'.

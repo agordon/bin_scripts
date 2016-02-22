@@ -55,6 +55,7 @@ AC_CONFIG_FILES( [
 		  scripts/tuniq:scripts/tuniq.sh
 		  scripts/xtime:scripts/xtime.sh
 		  scripts/xxcat:scripts/xxcat.sh
+		  scripts/create-ssha-passwd:scripts/create-ssha-passwd.py
 		  ] )
 
 AC_OUTPUT()
