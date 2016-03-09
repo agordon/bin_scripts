@@ -40,8 +40,8 @@ AC_CONFIG_FILES( [
 		  scripts/dudirs:scripts/dudirs.sh
 		  scripts/easyjoin:scripts/easyjoin.pl
 		  scripts/filetype_size_breakdown:scripts/filetype_size_breakdown.sh
-		  scripts/list_columns:scripts/list_columns
-		  scripts/make_balloon:scripts/make_balloon
+		  scripts/list_columns:scripts/list_columns.sh
+		  scripts/make_balloon:scripts/make_balloon.sh
 		  scripts/multijoin:scripts/multijoin.pl
 		  scripts/nfs_iostat:scripts/nfs_iostat.sh
 		  scripts/ppsx:scripts/ppsx.sh
