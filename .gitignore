@@ -36,6 +36,7 @@ scripts/ppsx
 scripts/pss
 scripts/psx
 scripts/rsx
+scripts/run-with-log
 scripts/sort-header
 scripts/sum_file_sizes
 scripts/sumcol

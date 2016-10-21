@@ -30,6 +30,7 @@ bin_SCRIPTS = \
 	scripts/nfs_iostat \
 	scripts/ppsx \
 	scripts/pss \
+	scripts/run-with-log \
 	scripts/sort-header \
 	scripts/sum_file_sizes \
 	scripts/sumcol \
