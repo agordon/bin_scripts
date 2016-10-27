@@ -37,7 +37,13 @@ Available scripts
 INSTALLATION
 ------------
 
-When using the released tarball version ( https://github.com/agordon/bin_scripts/releases ):
+Quick and Dirty:
+
+    sudo apt-get install -yqq automake autoconf make git
+    curl https://housegordon.org/install-bin-scripts.sh | sh
+
+
+Using the released tarball version ( https://github.com/agordon/bin_scripts/releases ):
 
     tar -xzvf gordon-bin-scripts-X.Y.Z.tar.gz
     cd gordon-bin-scripts-X.Y.Z
@@ -45,7 +51,7 @@ When using the released tarball version ( https://github.com/agordon/bin_scripts
     make
     sudo make install
 
-When using the GIT repository:
+Using the GIT repository:
 
     git clone git://github.com/agordon/bin_scripts.git
     cd bin_scripts
@@ -57,6 +63,7 @@ When using the GIT repository:
 When using HomeBrew/LinuxBrew:
 
     brew install --HEAD https://raw.github.com/agordon/bin_scripts/master/gordon_bin_scripts.rb
+
 
 SOURCE
 ------
