@@ -39,7 +39,7 @@ INSTALLATION
 
 Quick and Dirty:
 
-    sudo apt-get install -yqq automake autoconf make git
+    sudo apt-get install -yqq automake autoconf make git curl
     curl https://housegordon.org/install-bin-scripts.sh | sh
 
 
