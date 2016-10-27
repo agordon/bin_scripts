@@ -6,7 +6,7 @@
 # @PACKAGE_URL@
 
 COPYRIGHT="
-Copyright (C) 2014-2015  A. Gordon (assafgordon@gmail.com)
+Copyright (C) 2014-2016  A. Gordon (assafgordon@gmail.com)
 License: GPLv3+
 "
 
@@ -270,7 +270,7 @@ make $make_params \
 
 ##
 ## Make Install
-## (note: this assumes we're running as root)
+##
 $sudo_param make install \
     || die "make install failed"
 
