@@ -282,4 +282,5 @@ if test -n "$send_email" ; then
         || die_with_log "fatal error: failed to send email"
 fi
 
-exit 0
+# Propagate exit code from monitored program
+exit $rc
