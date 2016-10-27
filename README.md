@@ -1,7 +1,7 @@
 Collection of useful scripts
 ============================
 
-Copyright (C) 2010-2014 A. Gordon (assafgordon@gmail.com)
+Copyright (C) 2010-2016 A. Gordon (assafgordon@gmail.com)
 
 Available scripts
 -----------------
@@ -37,26 +37,26 @@ Available scripts
 INSTALLATION
 ------------
 
-When using the released tarball version:
+When using the released tarball version ( https://github.com/agordon/bin_scripts/releases ):
 
- $ tar -xzvf gordon-bin-scripts-X.Y.Z.tar.gz
- $ cd gordon-bin-scripts-X.Y.Z
- $ ./configure
- $ make
- $ sudo make install
+    tar -xzvf gordon-bin-scripts-X.Y.Z.tar.gz
+    cd gordon-bin-scripts-X.Y.Z
+    ./configure
+    make
+    sudo make install
 
 When using the GIT repository:
 
- $ git clone git://github.com/agordon/bin_scripts.git
- $ cd bin_scripts
- $ ./bootstrap.sh
- $ ./configure
- $ make
- $ sudo make install
+    git clone git://github.com/agordon/bin_scripts.git
+    cd bin_scripts
+    ./bootstrap
+    ./configure
+    make
+    sudo make install
 
 When using HomeBrew/LinuxBrew:
 
- $ brew install --HEAD https://raw.github.com/agordon/bin_scripts/master/gordon_bin_scripts.rb
+    brew install --HEAD https://raw.github.com/agordon/bin_scripts/master/gordon_bin_scripts.rb
 
 SOURCE
 ------
