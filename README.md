@@ -24,6 +24,7 @@ Available scripts
 * psx - copy fullpath of file/dir to clipboard.
 * rsx - copy rsync-compatible URL of file/dir to clipboard.
 * run-with-log - run a program, log stdout/err to file, email log on errors.
+* setup-bind-mount-chroot - easily create chroot directories mirroring the host.
 * sort-header - wrapper for GNU sort, with header line support.
 * sum_file_sizes - sum the size of files.
 * sumcol - sum the values in a column of input file.

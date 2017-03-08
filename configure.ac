@@ -57,6 +57,7 @@ AC_CONFIG_FILES( [
 		  scripts/xxcat:scripts/xxcat.sh
 		  scripts/create-ssha-passwd:scripts/create-ssha-passwd.py
 		  scripts/run-with-log:scripts/run-with-log.sh
+		  scripts/setup-bind-mount-chroot:scripts/setup-bind-mount-chroot.sh
 		  ] )
 
 AC_OUTPUT()

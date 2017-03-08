@@ -31,6 +31,7 @@ bin_SCRIPTS = \
 	scripts/ppsx \
 	scripts/pss \
 	scripts/run-with-log \
+	scripts/setup-bind-mount-chroot \
 	scripts/sort-header \
 	scripts/sum_file_sizes \
 	scripts/sumcol \
